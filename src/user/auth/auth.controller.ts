@@ -4,12 +4,10 @@ import { SignupDTO } from '../DTOS/auth.dto';
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authServie: AuthService) {}
 
-    constructor(private readonly authServie : AuthService) { }
-
-    @Post('/signup')
-    signup(@Body() body : SignupDTO){
-
-        return this.authServie.signup(body);
-    }
+  @Post('/signup')
+  signup(@Body() body: SignupDTO) {
+    return this.authServie.signup(body);
+  }
 }
