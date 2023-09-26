@@ -6,7 +6,7 @@ export class SignupDTO{
     @IsNotEmpty()
     name:string;
 
-    @Matches(/^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/)
+    @Matches(/^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/,{message : "phone number is not a valid phone number"})
     phone:string;
     
     @IsEmail()
