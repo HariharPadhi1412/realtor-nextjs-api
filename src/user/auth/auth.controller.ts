@@ -10,6 +10,6 @@ export class AuthController {
     @Post('/signup')
     signup(@Body() body : SignupDTO){
 
-        return this.authServie.signup();
+        return this.authServie.signup(body);
     }
 }
