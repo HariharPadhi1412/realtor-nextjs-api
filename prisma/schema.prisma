@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  phone      String
+  email      String
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_type  UserType
+}
+
+model Home {
+  id              Int          @id @default(autoincrement())
+  address         String
+  no_of_bedrooms  Int
+  no_of_bathrooms Float
+  city            String
+  listed_date     DateTime     @default(now())
+  price           Float
+  land_size       Float
+  propertyType    PropertyType
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+}
+
+model Image {
+  id         Int      @id @default(autoincrement())
+  url        String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Message {
+  id      Int    @id @default(autoincrement())
+  message String
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  CONDO
+}
+
+enum UserType {
+  BUYER
+  REALTOR
+  ADMIN
+}
