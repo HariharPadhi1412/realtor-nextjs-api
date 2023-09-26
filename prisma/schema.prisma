@@ -8,14 +8,17 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String
-  phone      String
-  email      String
-  password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user_type  UserType
+  id              Int       @id @default(autoincrement())
+  name            String
+  phone           String
+  email           String
+  password        String
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  user_type       UserType
+  homes           Home[]
+  buyer_message   Message[] @relation("buyer_message")
+  realtor_message Message[] @relation("realtor_message")
 }
 
 model Home {
@@ -30,6 +33,10 @@ model Home {
   propertyType    PropertyType
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt
+  images          Image[]
+  realtor_id      Int
+  realtor         User         @relation(fields: [realtor_id], references: [id])
+  Message         Message[]
 }
 
 model Image {
@@ -37,11 +44,19 @@ model Image {
   url        String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  home_id    Int
+  home       Home     @relation(fields: [home_id], references: [id])
 }
 
 model Message {
-  id      Int    @id @default(autoincrement())
-  message String
+  id         Int    @id @default(autoincrement())
+  message    String
+  home_id    Int
+  home       Home   @relation(fields: [home_id], references: [id])
+  realtor_id Int
+  realtor    User   @relation("buyer_message", fields: [realtor_id], references: [id])
+  buyer_id   Int
+  buyer      User   @relation("realtor_message", fields: [buyer_id], references: [id])
 }
 
 enum PropertyType {
