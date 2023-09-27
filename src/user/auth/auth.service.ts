@@ -36,6 +36,8 @@ export class AuthService {
       },
     });
 
+    console.log('hi');
+
     return user;
   }
 }
